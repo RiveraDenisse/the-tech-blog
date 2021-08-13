@@ -2,12 +2,19 @@ const router = require("express").Router();
 const sequelize = require("../config/connection");
 const { Post, User, Comment } = require("../models");
 
+//check for a session and if logged in then redirect to homepage
 router.get("/login", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+
   res.render("login");
 });
 
 //these are routes for the homepage we want to render
 router.get("/", (req, res) => {
+  console.log(req.session);
   Post.findAll({
     attributes: [
       "id",

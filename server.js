@@ -18,7 +18,20 @@ const hbs = exphbs.create({});
 const app = express();
 // Define the port for the server
 const PORT = process.env.PORT || 3001;
+//to use express-session and sequelize store
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+const sess = {
+  secret: "canyouguessmysecret",
+  cookie: {},
+  resave: false,
+  saveUninitialize: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+app.use(session(sess));
 // Give the server a path to the public directory for static files
 app.use(express.static(path.join(__dirname, "public")));
 
