@@ -22,8 +22,10 @@ const PORT = process.env.PORT || 3001;
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+//create session object
 const sess = {
   secret: "canyouguessmysecret",
+  //cookie to start empty
   cookie: {},
   resave: false,
   saveUninitialize: true,
